@@ -7,6 +7,7 @@ class Genre(models.Model):
     """Model representing a book genre."""
     name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
     
+
     def __str__(self):
         """String for representing the Model object."""
         return self.name
@@ -30,10 +31,17 @@ class Book(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.title
+
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])
+
+    def display_genre(self):
+        """Create a string for the Genre. This is required to display genre in Admin."""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+    
+    display_genre.short_description = 'Genre'
 
 import uuid # Required for unique book instances
 
