@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from catalog.models import Author, Genre, Book, BookInstance
 
-#admin.site.register(Book)
+#admin.site.register(Author)
 # Register the Admin classes for Book using the decorator
 
 class BooksInstanceInline(admin.TabularInline):
@@ -17,13 +17,13 @@ class BookAdmin(admin.ModelAdmin):
 # Register the Admin classes for BookInstance using the decorator
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
-    list_filter = ('status', 'due_back')
+    list_filter = ('book', 'status', 'borrower', 'due_back', 'id')
     fieldsets = (
         (None, {
             'fields': ('book', 'imprint', 'id')
         }),
         ('Availability', {
-            'fields': ('status', 'due_back')
+            'fields': ('status', 'due_back', 'borrower')
         }),
     )
 #admin.site.register(Author)
